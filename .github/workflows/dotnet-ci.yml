@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-    Setup_and_Dependencies:
+    setup:
         runs-on: ubuntu-latest
         
         steps:
@@ -37,7 +37,7 @@ jobs:
                 path: ~/.dotnet
                 key: ${{ runner.os }}-dotnet-${{env.DTN_VER}}
 
-    Build_Solution:
+    build:
         runs-on: ubuntu-latest
         needs: setup
         
@@ -54,7 +54,7 @@ jobs:
             - name: Build Solution
               run: dotnet build --no-restore --configuration Release
 
-    Test_Solution:
+    test:
         runs-on: ubuntu-latest
         needs: build
         
