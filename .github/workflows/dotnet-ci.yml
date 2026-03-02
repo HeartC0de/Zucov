@@ -57,8 +57,5 @@ jobs:
             - name: List downloaded files
               run: ls -la dist/
       
-            - name: Install test dependencies
-              run: npm install
-      
             - name: Run tests on downloaded build
-              run: npm run test:dist
+              run: dotnet test --no-build --configuration Release --verbosity normal
