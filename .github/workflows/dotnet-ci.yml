@@ -23,7 +23,6 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Setup .NET
-              id: setup-dotnet
               uses: actions/setup-dotnet@v4
               with:
                 dotnet-version: ${{env.DTN_VER}}
@@ -31,11 +30,15 @@ jobs:
             - name: Restore Dependencies
               run: dotnet restore
             
-            - name: Cache .NET installation
-              uses: actions/cache@v3
+            - name: Upload restored packages
+              uses: actions/upload-artifact@v4
               with:
-                path: ~/.dotnet
-                key: ${{ runner.os }}-dotnet-${{env.DTN_VER}}
+                name: restored-packages
+                path: |
+                  /obj
+                  /bin
+                  ~/.nuget/packages
+                if-no-files-found: warn
 
     build:
         runs-on: ubuntu-latest
@@ -45,11 +48,15 @@ jobs:
             - name: Get Code From Repos
               uses: actions/checkout@v4
 
-            - name: Restore .NET from cache
-              uses: actions/cache@v3
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
               with:
-                path: ~/.dotnet
-                key: ${{ runner.os }}-dotnet-${{env.DTN_VER}}
+                dotnet-version: ${{env.DTN_VER}}
+            
+            - name: Download restored packages
+              uses: actions/download-artifact@v4
+              with:
+                name: restored-packages
             
             - name: Build Solution
               run: dotnet build --no-restore --configuration Release
@@ -62,11 +69,15 @@ jobs:
             - name: Get Code From Repos
               uses: actions/checkout@v4
 
-            - name: Restore .NET from cache
-              uses: actions/cache@v3
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
               with:
-                path: ~/.dotnet
-                key: ${{ runner.os }}-dotnet-${{env.DTN_VER}}
+                dotnet-version: ${{env.DTN_VER}}
+            
+            - name: Download restored packages
+              uses: actions/download-artifact@v4
+              with:
+                name: restored-packages
             
             - name: Test
               run: dotnet test --no-build --configuration Release --verbosity normal
