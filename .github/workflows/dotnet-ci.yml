@@ -32,6 +32,11 @@ jobs:
     
             - name: Build Solution
               run: dotnet build --no-restore --configuration Release
+
+            - name: Copy build to dist
+              run: |
+                mkdir -p dist
+                cp -r **/bin/** dist/
             
             - name: Upload build artifact
               uses: actions/upload-artifact@v4
