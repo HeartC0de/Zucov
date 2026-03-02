@@ -11,7 +11,7 @@ on:
         - dev
 
 env:
-    DTN_VER : '10.0.x'
+    DTN_VER : '9.0.x'
 
 
 jobs:
