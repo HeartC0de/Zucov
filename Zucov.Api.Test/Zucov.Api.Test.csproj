@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zucov.api\Zucov.api.csproj" />
+    <ProjectReference Include="..\Zucov.Api\Zucov.Api.csproj" />
   </ItemGroup>
 
 </Project>
