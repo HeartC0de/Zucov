@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-    build:
+    rest:
         runs-on: ubuntu-latest
 
         steps:
@@ -30,12 +30,20 @@ jobs:
             - name: Restorre Dependencies
               run: dotnet restore
     
+                
+            - name: Cache Dependendencies
+              uses:  actions/cache@v3
+              with:
+               path: ~/.nuget/packages
+               key: ${{ runner.os }}-nuget-${{hashFiles('**/*.csproj')}}
+               restore-keys: ${{ runner.os }}-nuget-
+
             - name: Build Solution
               run: dotnet build --no-restore --configuration Release
 
 
-    test:
-        needs: build
+    testandbuild:
+        needs: rest
         runs-on: ubuntu-latest
 
         steps:
@@ -47,6 +55,10 @@ jobs:
               uses: actions/setup-dotnet@v4
               with:
                 dotnet-version: ${{env.DTN_VER}}
+
+            - name: Build Solution
+              run: dotnet build --configuration Release
+
 
             - name: Test
               run: dotnet test --no-build --configuration Release --verbosity normal
