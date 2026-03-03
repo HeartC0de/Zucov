@@ -1,14 +1,14 @@
 name: Docker Shit
 
 on:
-    push:
-        tags:
-           - "v*.*.*"
+  push:
+    tags:
+      - "v*.*.*"
 
 
 env:
-   REGISTRY: ghcr.io
-   IMAGE_NAME: ${{ github.repository }}
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
