@@ -88,8 +88,12 @@ jobs:
         id: release_notes  
         run: |    # Извлекаем сообщение коммита тега    
           TAG_NAME="${GITHUB_REF##*/}"    
-          RELEASE_NOTES=$(git tag -l --format='%(contents)' "$TAG_NAME")    # Если нет сообщения, используем стандартное    
-          if [ -z "$RELEASE_NOTES" ]; then      RELEASE_NOTES="Release $TAG_NAME"    fi    # Сохраняем в output    
+          RELEASE_NOTES=$(git tag -l --format='%(contents)' "$TAG_NAME")    
+          # Если нет сообщения, используем стандартное    
+          if [ -z "$RELEASE_NOTES" ]; then      
+            RELEASE_NOTES="Release $TAG_NAME"    
+          fi    
+          # Сохраняем в output    
           echo "notes<<EOF" >> $GITHUB_OUTPUT    
           echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT    
           echo "EOF" >> $GITHUB_OUTPUT
