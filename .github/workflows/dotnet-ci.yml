@@ -19,7 +19,7 @@ jobs:
       packages: write
       
     steps:
-      - name: Chekout repo
+      - name: Chekout repos
         uses: actions/checkout@v4
           
       - name: Setup Docker Buildx
@@ -64,7 +64,7 @@ jobs:
 #   push:
 #     tags:
 #       - "v*.*.*"
-
+#
 
 # env:
 #   REGISTRY: ghcr.io
