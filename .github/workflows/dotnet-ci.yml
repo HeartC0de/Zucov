@@ -121,4 +121,4 @@ jobs:
           dotnet-version: ${{env.DTN_VER}}
 
       - name: Test
-        run: dotnet test --no-build --configuration Release --verbosity normal
+        run: dotnet test --no-build --configuration Release --verbosity normal  #retest
